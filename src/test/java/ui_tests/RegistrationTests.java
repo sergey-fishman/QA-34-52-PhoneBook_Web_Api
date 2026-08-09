@@ -12,15 +12,15 @@ import java.util.Random;
 public class RegistrationTests extends AppManager {
 
     @BeforeMethod
-    public void goToRegistrationLoginPage(){
+    public void goToRegistrationLoginPage() {
         new HomePage(getDriver()).clickBtnLogin();
     }
 
     @Test
-    public void registrationPositiveTest(){
+    public void registrationPositiveTest() {
         int i = new Random().nextInt(1000);
         UserLombok user = UserLombok.builder()
-                .username("ser.gey"+i+"@ya.ru")
+                .username("ser.gey" + i + "@ya.ru")
                 .password("Qwerty1234!")
                 .build();
         LoginPage loginPage = new LoginPage(getDriver());

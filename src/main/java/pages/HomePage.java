@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,8 +19,25 @@ public class HomePage extends BasePage {
 
     @FindBy(xpath = "//a[text()='LOGIN']")
     WebElement btnLogin;
+    @FindBy(xpath = "//form/input[1]")
+    WebElement inputEmail;
 
     public void clickBtnLogin() {
         btnLogin.click();
+    }
+
+    public void method() {
+        WebElement login = driver.findElement(By.xpath
+                ("//a[text()='LOGIN']"));
+        login.click();
+        // сразу вызываем элемент, потому что он далее перезаписыается
+        WebElement inputEmail = driver.findElement(By.xpath
+                ("//form/input[1]"));
+        inputEmail.sendKeys("ser.gey@mail.ru");
+    }
+
+    public void ajaxMethod() {
+        btnLogin.click();
+        inputEmail.sendKeys("ser.gey@mail.ru");
     }
 }

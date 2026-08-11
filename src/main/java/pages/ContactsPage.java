@@ -19,4 +19,9 @@ public class ContactsPage extends BasePage {
     public boolean validateTextInMessageNoContacts(String text){
         return isTextInElementPresent(messageNoContacts,text);
     }
+
+    public void printMessageNoContacts() {
+        System.out.println(">>>>>>>> message >>>> " +
+                messageNoContacts.getText());
+    }
 }

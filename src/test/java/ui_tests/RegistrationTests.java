@@ -15,6 +15,7 @@ import java.util.Random;
 
 public class RegistrationTests extends AppManager {
     LoginPage loginPage;
+    ContactsPage contactsPage;
 
     @BeforeMethod
     public void goToRegistrationLoginPage() {
@@ -42,9 +43,10 @@ public class RegistrationTests extends AppManager {
         System.out.println(user);
         loginPage.typeLoginRegistrationForm(user);
         loginPage.clickBtnRegistration();
-
-        Assert.assertTrue(new ContactsPage(getDriver())
+        contactsPage = new ContactsPage(getDriver());
+        Assert.assertTrue(contactsPage
                 .validateTextInMessageNoContacts("No Contacts here!"));
+        contactsPage.printMessageNoContacts();
     }
 
     @Test

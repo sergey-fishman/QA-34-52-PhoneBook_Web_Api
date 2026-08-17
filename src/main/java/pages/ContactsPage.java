@@ -16,8 +16,15 @@ public class ContactsPage extends BasePage {
     @FindBy(xpath = "//*[@id='root']/div[2]/div/h1")
     WebElement messageNoContacts;
 
+    @FindBy(xpath = "//div[@id='root']/div[1]")
+    WebElement navBar;
+
     public boolean validateTextInMessageNoContacts(String text){
         return isTextInElementPresent(messageNoContacts,text);
+    }
+
+    public boolean validateTextInNavbar(String text) {
+        return isTextInElementPresent(navBar,text);
     }
 
     public void printMessageNoContacts() {

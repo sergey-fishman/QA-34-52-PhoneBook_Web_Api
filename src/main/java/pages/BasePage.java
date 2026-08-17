@@ -15,6 +15,10 @@ public abstract class BasePage {
         driver = wd;
     }
 
+    public boolean isTextInElementPresentSimple(WebElement element, String text) {
+        return element.getText().contains(text);
+    }
+
     public boolean isTextInElementPresent(WebElement element, String text) {
         try {
             return new WebDriverWait(driver, Duration.ofSeconds(5))

@@ -20,12 +20,12 @@ public class HomePage extends BasePage {
     }
 
     @FindBy(xpath = "//a[text()='LOGIN']")
-    WebElement btnLogin;
+    WebElement linkLogin;
     @FindBy(xpath = "//form/input[1]")
     WebElement inputEmail;
 
-    public void clickBtnLogin() {
-        btnLogin.click();
+    public void clickLinkLogin() {
+        linkLogin.click();
     }
 
     public void method() {
@@ -39,7 +39,7 @@ public class HomePage extends BasePage {
     }
 
     public void ajaxMethod() {
-        btnLogin.click();
+        linkLogin.click();
         inputEmail.sendKeys("ser.gey@mail.ru");
     }
 }

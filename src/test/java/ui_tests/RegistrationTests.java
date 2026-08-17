@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
-import utils.UserFactory;
 
 import static utils.UserFactory.*;
 
@@ -21,7 +20,7 @@ public class RegistrationTests extends AppManager {
 
     @BeforeMethod
     public void goToRegistrationLoginPage() {
-        new HomePage(getDriver()).clickBtnLogin();
+        new HomePage(getDriver()).clickLinkLogin();
         loginPage = new LoginPage(getDriver());
     }
 
@@ -86,6 +85,13 @@ public class RegistrationTests extends AppManager {
         Assert.assertTrue(loginPage.closeAlert()
                 .contains("Wrong email or password format"));
     }
+
+/*
+почему мы передаем в наш дата провайдер и имейл, и пароль, если
+меняется только пароль?
+для негативного теста для имейла нам нужно будет создавать
+отдельный метод в классе провайдер?
+ */
 
 /*
     @Test

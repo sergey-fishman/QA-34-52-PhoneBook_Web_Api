@@ -32,4 +32,7 @@ public class LoginPage extends BasePage {
     public void clickBtnRegistration() {
         btnRegistration.click();
     }
+    public void clickBtnLogin() {
+        btnLogin.click();
+    }
 }

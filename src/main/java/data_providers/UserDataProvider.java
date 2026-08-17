@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class UserDataProvider {
+
     @DataProvider
     public Iterator<UserLombok> dataProviderWrongPasswordOrEmail() {
         List<UserLombok> list = new ArrayList<>();
+
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader
                 ("src/test/resources/wrong_email_password.csv"))) {
             String line = bufferedReader.readLine();

@@ -31,8 +31,12 @@ public class LoginTests extends AppManager {
         loginPage.typeLoginRegistrationForm(user);
         loginPage.clickBtnLogin();
         contactsPage = new ContactsPage(getDriver());
+        softAssert.assertTrue(contactsPage.isLinkContactsDisplayed(),
+                "If False -> link Contacts is not displayed");
         softAssert.assertTrue(contactsPage.validateTextInNavbar
                 ("CONTACTS"), "If False -> No 'CONTACTS' found in navbar");
+        softAssert.assertTrue(contactsPage.isUrlContainsText("contacts"),
+                "If False -> URL does not contain text string");
         softAssert.assertAll();
     }
 

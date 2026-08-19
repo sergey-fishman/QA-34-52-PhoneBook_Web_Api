@@ -18,6 +18,8 @@ public class ContactsPage extends BasePage {
 
     @FindBy(xpath = "//div[@id='root']/div[1]")
     WebElement navBar;
+    @FindBy(xpath = "//a[@href='/contacts']")
+    WebElement linkContacts;
 
     public boolean validateTextInMessageNoContacts(String text){
         return isTextInElementPresent(messageNoContacts,text);
@@ -25,6 +27,10 @@ public class ContactsPage extends BasePage {
 
     public boolean validateTextInNavbar(String text) {
         return isTextInElementPresent(navBar,text);
+    }
+
+    public boolean isLinkContactsDisplayed() {
+        return linkContacts.isDisplayed();
     }
 
     public void printMessageNoContacts() {

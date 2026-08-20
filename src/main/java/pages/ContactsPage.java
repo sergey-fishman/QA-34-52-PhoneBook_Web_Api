@@ -32,9 +32,4 @@ public class ContactsPage extends BasePage {
     public boolean isLinkContactsDisplayed() {
         return linkContacts.isDisplayed();
     }
-
-    public void printMessageNoContacts() {
-        System.out.println(">>>>>>>> message >>>> " +
-                messageNoContacts.getText());
-    }
 }

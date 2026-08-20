@@ -6,14 +6,9 @@ import net.datafaker.Faker;
 public class UserFactory {
     static Faker faker = new Faker();
 
-//    public static void main(String[] args) {
-//        String firstName = faker.name().firstName();
-//        System.out.println(firstName);
-//        String lastName = faker.name().lastName();
-//        System.out.println(lastName);
-//        String email = faker.internet().emailAddress();
-//        System.out.println(email);
-//    }
+    public static void main(String[] args) {
+        System.out.println(faker.internet().emailAddress());
+    }
 
     public static UserLombok positiveUser(){
         UserLombok user = UserLombok.builder()

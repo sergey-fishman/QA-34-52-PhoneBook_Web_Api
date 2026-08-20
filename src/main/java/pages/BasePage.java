@@ -43,6 +43,12 @@ public abstract class BasePage {
         return false;
     }
 
+    public Alert getAlert() {
+        return new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions
+                        .alertIsPresent());
+    }
+
     public String closeAlert() {
         Alert alert = new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions

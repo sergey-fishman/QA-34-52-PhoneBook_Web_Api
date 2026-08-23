@@ -138,6 +138,10 @@ public class RegistrationTests extends AppManager {
     TC 5 -> User fails to register with incorrect password format.
     Expected result -> Reg fail, Alert message appears containing text
     'Wrong email or password format'.
+    Actual result -> 7 passed, 2 failed with the following data:
+    password=Qwerty 123$
+    password=Qwerty123456789$
+    НАЙДЕНО 2 БАГА
     */
     @Test(dataProvider = "dataProviderWrongPassword",
             dataProviderClass = UserDataProvider.class)

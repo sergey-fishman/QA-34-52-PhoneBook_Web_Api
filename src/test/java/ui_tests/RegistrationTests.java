@@ -27,7 +27,6 @@ public class RegistrationTests extends AppManager {
     public void goToRegistrationLoginPage() {
         new HomePage(getDriver()).clickLinkLogin();
         loginPage = new LoginPage(getDriver());
-        logger.info("Start registration test");
     }
 
     @Test

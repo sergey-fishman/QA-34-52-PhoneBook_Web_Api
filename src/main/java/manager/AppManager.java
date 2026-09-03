@@ -2,12 +2,11 @@ package manager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.openqa.selenium.support.events.EventFiringDecorator;
+import org.openqa.selenium.support.events.WebDriverListener;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-
-import java.lang.reflect.Method;
+import utils.WDListener;
 
 public class AppManager {
     private WebDriver driver;
@@ -16,13 +15,12 @@ public class AppManager {
         return driver;
     }
 
-    public Logger logger = LoggerFactory.getLogger(AppManager.class);
-
     @BeforeMethod()
-    public void setup(Method method) {
+    public void setup() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        logger.info("Start testing with method -> " + method.getName());
+        WebDriverListener listener = new WDListener();
+        driver = new EventFiringDecorator<>(listener).decorate(driver);
     }
 
     @AfterMethod(enabled = false)

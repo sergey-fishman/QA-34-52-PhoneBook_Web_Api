@@ -20,6 +20,5 @@
 
     <root level="info"> <!-- levels logging     off/error/warning/info/debug/trace  -->
         <appender-ref ref="FILE" />
-        <appender-ref ref="STDOUT" />
     </root>
 </configuration>

@@ -45,6 +45,7 @@ public class TestNGListener implements ITestListener {
         try {
             Alert alert = driver.switchTo().alert();
             logger.warn("⚠️ During failure Alert detected. Alert text: [{}]", alert.getText());
+            alert.accept();
         } catch (NoAlertPresentException e){
             logger.info(e.getMessage());
         }

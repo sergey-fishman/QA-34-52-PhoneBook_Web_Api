@@ -5,31 +5,34 @@ import dto.UserLombok;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
 import utils.PropertiesReader;
+import utils.TestNGListener;
+
+import java.util.Random;
 
 import static utils.UserFactory.*;
 import static utils.PropertiesReader.*;
 
-
-import java.util.Random;
+@Listeners(TestNGListener.class)
 
 public class RegistrationTests extends AppManager {
     LoginPage loginPage;
     ContactsPage contactsPage;
     SoftAssert softAssert = new SoftAssert();
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void goToRegistrationLoginPage() {
         new HomePage(getDriver()).clickLinkLogin();
         loginPage = new LoginPage(getDriver());
     }
 
-    @Test
+    @Test(groups = {"smoke", "regress", "positive", "user"})
     public void registrationPositiveTest() {
         int i = new Random().nextInt(1000);
         UserLombok user = UserLombok.builder()
@@ -43,7 +46,7 @@ public class RegistrationTests extends AppManager {
                 .validateTextInMessageNoContacts("No Contacts here!"));
     }
 
-    @Test
+    @Test(groups = {"smoke", "regress", "positive", "user"})
     public void registrationPositiveTestWithFaker() {
         UserLombok user = positiveUser();
         System.out.println(user);
@@ -140,7 +143,7 @@ public class RegistrationTests extends AppManager {
     'Wrong email or password format'.
     Actual result -> 7 passed, 2 failed with the following data:
     password=Qwerty 123$
-    password=Qwerty123456789$
+    password=Qwerty123456789$ max length
     НАЙДЕНО 2 БАГА
     */
     @Test(dataProvider = "dataProviderWrongPassword",

@@ -1,0 +1,4 @@
+./gradlew clean -> очищаем отчет в build/reports
+./gradlew test -> запуск всех тестов
+./gradlew clean test -> очистка и запуск
+./gradlew clean scope

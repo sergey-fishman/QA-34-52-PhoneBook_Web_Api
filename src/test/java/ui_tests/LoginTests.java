@@ -20,13 +20,13 @@ public class LoginTests extends AppManager {
     ContactsPage contactsPage;
     SoftAssert softAssert = new SoftAssert();
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void goToRegistrationLoginPage() {
         new HomePage(getDriver()).clickLinkLogin();
         loginPage = new LoginPage(getDriver());
     }
 
-    @Test
+    @Test(groups = {"smoke", "regress", "positive", "user"})
     public void loginPositiveTest() {
         UserLombok user = UserLombok.builder()
                 .username(getProperty("base.properties", "username"))
@@ -65,7 +65,8 @@ public class LoginTests extends AppManager {
         loginPage.typeLoginRegistrationForm(user);
         loginPage.clickBtnLogin();
         softAssert.assertTrue(loginPage.getAlert().getText()
-                .contains("Wrong email or password"));
+                .contains("Wrong email or password"),
+                "Expected alert message \"Wrong email er password\"");
         softAssert.assertAll();
     }
     /*

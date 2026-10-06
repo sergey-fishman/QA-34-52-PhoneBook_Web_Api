@@ -4,7 +4,7 @@ import dto.UserLombok;
 import net.datafaker.Faker;
 
 public class UserFactory {
-    static Faker faker = new Faker();
+    public static Faker faker = new Faker();
 
     public static void main(String[] args) {
         System.out.println(faker.internet().emailAddress());

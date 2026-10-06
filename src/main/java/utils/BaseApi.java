@@ -1,6 +1,7 @@
 package utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 
@@ -11,8 +12,9 @@ public interface BaseApi {
     String CONTACTS_URL = "/v1/contacts";
 
     MediaType JSON = MediaType.get("application/json");
+    MediaType TEXT = MediaType.get("text/plain");
     OkHttpClient OK_HTTP_CLIENT = new OkHttpClient();
     String AUTH = "Authorization";
     Gson GSON = new Gson();
-    MediaType TEXT = MediaType.get("text/plain");
+    Gson GSON_WITH_NULLS = new GsonBuilder().serializeNulls().create();
 }

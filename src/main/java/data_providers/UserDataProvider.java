@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import static utils.UserFactory.faker;
 
 public class UserDataProvider {
 
@@ -20,7 +21,8 @@ public class UserDataProvider {
             while (line != null) {
                 String[] splitLine = line.split(",");
                 list.add(UserLombok.builder()
-                        .username(splitLine[0])
+//                        .username(splitLine[0])
+                        .username(faker.internet().emailAddress())
                         .password(splitLine[1])
                         .build());
                 line = bufferedReader.readLine();

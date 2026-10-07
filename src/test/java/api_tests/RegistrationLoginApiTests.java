@@ -9,6 +9,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.BaseApi;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import static utils.UserFactory.*;
 import static utils.PropertiesReader.*;
 
@@ -110,6 +113,27 @@ public class RegistrationLoginApiTests implements BaseApi {
         System.out.println(response);
         Assert.assertEquals(response.code(), 200);
     }
+    @Test
+    public void loginApiWrongFormatPositiveTest() {
+        UserLombok user = UserLombok.builder()
+                .username(getProperty("base.properties", "username"))
+                .password(getProperty("base.properties", "password"))
+                .build();
+        RequestBody requestBody = RequestBody.create(GSON.toJson(user), TEXT);
+        Request request = new Request.Builder()
+                .url(BASE_URL+LOGIN_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(GSON.toJson(user));
+        System.out.println(response);
+        Assert.assertEquals(response.code(), 500);
+    }
 
     @Test
     public void loginApiWrongPasswordNegativeTest() {
@@ -153,6 +177,36 @@ public class RegistrationLoginApiTests implements BaseApi {
         System.out.println(request);
         System.out.println(response);
         Assert.assertEquals(response.code(), 401);
+    }
+
+    @Test
+    public void loginApiWrongKeyUsernameNegativeTest() {
+        UserLombok user = UserLombok.builder()
+                .username(getProperty("base.properties", "username"))
+                .password(getProperty("base.properties", "password"))
+                .build();
+        Map<String,String> invalidJson = new HashMap<>();
+        invalidJson.put("email", user.getUsername());
+        invalidJson.put("password", user.getPassword());
+        RequestBody requestBody = RequestBody.create(GSON.toJson(invalidJson), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL+LOGIN_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(GSON.toJson(invalidJson));
+        System.out.println(request);
+        try {
+            System.out.println(response.body().string());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(response.code(), 400);
     }
     // (username=camie.katzmann@gmail.c, password=Qwerty123$)) FAILED expected [400] but found [200]
     // (username=camie.katzmann@gmail, password=Qwerty123$)) FAILED expected [400] but found [200]
@@ -211,7 +265,11 @@ public class RegistrationLoginApiTests implements BaseApi {
         }
         System.out.println(GSON_WITH_NULLS.toJson(user));
         System.out.println(request);
-        System.out.println(response);
+        try {
+            System.out.println(response.body().string());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         Assert.assertEquals(response.code(), 400);
     }
     // method GET

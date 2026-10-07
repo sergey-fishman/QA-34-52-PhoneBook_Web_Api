@@ -57,4 +57,65 @@ public class AddNewContactApiTests implements BaseApi, ILogin {
                 "Response message contains 'Contact was added'");
         softAssert.assertAll();
     }
+
+    @Test
+    public void addNewContactWrongTokenNegativeTest() {
+        ContactDto contact = positiveContact();
+        System.out.println(contact);
+        System.out.println(tokenDto.getToken());
+        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + CONTACTS_URL)
+                .addHeader(AUTH, "bla-bla-bla")
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(response);
+        ResponseMessageDto message;
+        try {
+            message = GSON.fromJson(response.body().string(), ResponseMessageDto.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(message);
+        softAssert.assertEquals(response.code(), 401,
+                "Status code equals 401");
+        softAssert.assertTrue(message.getMessage().contains("WT strings must contain"),
+                "Response message contains 'WT strings must contain'");
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void addNewContactNoTokenNegativeTest() {
+        ContactDto contact = positiveContact();
+        System.out.println(contact);
+        System.out.println(tokenDto.getToken());
+        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + CONTACTS_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(response);
+        ResponseMessageDto message;
+        try {
+            message = GSON.fromJson(response.body().string(), ResponseMessageDto.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(message);
+        softAssert.assertEquals(response.code(), 403,
+                "Status code equals 403");
+        softAssert.assertAll();
+    }
 }

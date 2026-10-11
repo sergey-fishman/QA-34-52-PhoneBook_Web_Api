@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import static utils.ContactFactory.*;
 
-public class UpdateContactApiTests implements BaseApi, ILoginCreateContact {
+public class UpdateDeleteContactApiTests implements BaseApi, ILoginCreateContact {
     String contactID;
     TokenDto tokenDto;
     SoftAssert softAssert = new SoftAssert();
@@ -138,15 +138,32 @@ public class UpdateContactApiTests implements BaseApi, ILoginCreateContact {
                 .put(requestBody)
                 .build();
         Response response;
-        ResponseMessageDto message;
+        ErrorMessageDto message;
         try {
             response = OK_HTTP_CLIENT.newCall(request).execute();
-            message = GSON.fromJson(response.body().string(), ResponseMessageDto.class);
+            message = GSON.fromJson(response.body().string(), ErrorMessageDto.class);
             System.out.println("Message = " + message);
             System.out.println("Response code = " + response.code());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void deleteContactPositiveTest() {
+        Request request = new Request.Builder()
+                .url(BASE_URL + CONTACTS_URL + "/" + contactID)
+                .delete()
+                .addHeader(AUTH, tokenDto.getToken())
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+            System.out.println("Message: " + response.body().string());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(response.code(), 200);
     }
 }

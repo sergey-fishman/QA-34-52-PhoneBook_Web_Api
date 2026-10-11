@@ -13,15 +13,16 @@ import java.io.IOException;
 import static utils.ContactFactory.positiveContact;
 import static utils.PropertiesReader.getProperty;
 
-public interface ICreateContact extends BaseApi {
-    default String createContact() {
+public interface ILoginCreateContact extends BaseApi {
+
+    default TokenDto loginGetToken() {
         UserLombok user = UserLombok.builder()
                 .username(getProperty("base.properties", "username"))
                 .password(getProperty("base.properties", "password"))
                 .build();
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
         Request request = new Request.Builder()
-                .url(BASE_URL + LOGIN_URL)
+                .url(BASE_URL+LOGIN_URL)
                 .post(requestBody)
                 .build();
         Response response;
@@ -33,9 +34,14 @@ public interface ICreateContact extends BaseApi {
         TokenDto tokenDto;
         try {
             tokenDto = GSON.fromJson(response.body().string(), TokenDto.class);
+            return tokenDto;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    default String createContact() {
+        TokenDto tokenDto = loginGetToken();
         ContactDto contact = positiveContact();
         System.out.println(contact);
         System.out.println(tokenDto.getToken());
